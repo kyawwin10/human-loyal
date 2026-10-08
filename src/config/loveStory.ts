@@ -8,7 +8,7 @@ export const loveStory = {
   dates: {
     firstMeeting: '2024-01-01',
     confession: '2024-02-14',
-    anniversary: '2024-03-01',
+    anniversary: '2026-01-10',
     birthday: '2000-05-20',
   },
   images: {
