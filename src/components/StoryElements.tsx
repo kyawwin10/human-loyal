@@ -79,6 +79,11 @@ function EnvelopeLetter({ label, text, signature, onOpen, autoOpen = false, onCo
       <div className="envelope-back" aria-hidden="true" />
       <div className="paper-pocket">
         <motion.div ref={paper} id={id} className="letter-paper extracted-paper" aria-hidden={phase !== 'reading'} initial={false} animate={{ y: extracted ? 0 : paperHeight + 32 }} transition={{ duration: reduced ? 0 : 1.45, ease: [0.22, 0.65, 0.3, 1] }} onAnimationComplete={() => { if (phase === 'paper') setPhase('reading'); if (phase === 'returning') setPhase('closing') }}>
+          <motion.div className="paper-heart-decoration" aria-hidden="true" initial={false} animate={{ opacity: extracted ? 1 : 0, scale: extracted ? 1 : 0.65, y: extracted ? 0 : 10 }} transition={{ duration: reduced ? 0 : 0.7, delay: extracted && !reduced ? 0.3 : 0, ease: [0.22, 0.65, 0.3, 1] }}>
+            <span className="paper-heart-rule" />
+            <span className="paper-heart-mark"><Heart size={38} strokeWidth={1.2} fill="currentColor" /><Sparkles className="paper-heart-sparkle" size={14} strokeWidth={1.3} /></span>
+            <span className="paper-heart-rule" />
+          </motion.div>
           <motion.div className="letter-text" initial={false} animate={{ opacity: phase === 'reading' ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.6 }}>
             {phase === 'reading' && <><Typewriter active text={text} />{signature && <p className="signature">{signature}<Heart size={18} /></p>}</>}
           </motion.div>
@@ -87,7 +92,7 @@ function EnvelopeLetter({ label, text, signature, onOpen, autoOpen = false, onCo
       <div className="envelope-front" aria-hidden="true"><p>For thae thae, with all my heart</p></div>
       <button type="button" className="wax-seal" aria-label={`${label} using heart seal`} title={label} aria-expanded={expanded} aria-controls={id} aria-hidden={expanded} disabled={expanded} onClick={openLetter}><Heart size={24} aria-hidden="true" /></button>
       <motion.div className="envelope-flap" aria-hidden="true" style={{ zIndex: flapOpen && phase !== 'flap' ? 1 : 4 }} initial={false} animate={{ rotateX: flapOpen ? 180 : 0 }} transition={{ duration: reduced ? 0 : 0.85, ease: 'easeInOut' }} onAnimationComplete={() => { if (phase === 'flap') setPhase('paper'); if (phase === 'closing') setPhase('closed') }} />
-      {phase === 'reading' && !reduced && <div className="letter-hearts" aria-hidden="true">{[0, 1, 2, 3].map(index => <motion.span key={index} style={{ left: `${14 + index * 24}%` }} initial={{ opacity: 0, y: 0 }} animate={{ opacity: [0, 0.45, 0], y: -95, rotate: index % 2 ? 12 : -12 }} transition={{ duration: 3, delay: index * 0.25 }}>{index % 2 ? <Sparkles size={13} /> : <Heart size={15} />}</motion.span>)}</div>}
+      {flapOpen && !reduced && <div className="letter-hearts" aria-hidden="true">{Array.from({ length: 160 }, (_, index) => <motion.span key={index} style={{ left: `${22 + ((index * 7) % 13) * 4}%`, color: ['#ff2446', '#f20d35', '#e51b23'][index % 3] }} initial={{ opacity: 0, x: 0, y: 0, scale: 0.3 }} animate={{ opacity: [0, 1, 0.9, 0], x: (index % 2 ? 1 : -1) * (16 + (index % 6) * 4), y: -(140 + (index % 7) * 22), scale: [0.3, 1.12, 1, 0.8], rotate: index % 2 ? 18 : -18 }} transition={{ duration: 3.6 + (index % 4) * 0.2, delay: 0.28 + index * 0.013, ease: 'easeOut', times: [0, 0.18, 0.65, 1] }}><Heart size={24 + (index % 4) * 6} fill="currentColor" strokeWidth={1} /></motion.span>)}</div>}
     </div>
     <div className="envelope-actions"><button className="primary-button" aria-expanded={expanded} aria-controls={id} disabled={busy} onClick={() => { if (phase === 'closed') openLetter(); else setPhase(reduced ? 'closed' : 'returning') }}><Mail size={17} />{expanded ? 'Close the letter' : label}</button>{onContinue && phase === 'reading' && <button className="text-button" onClick={onContinue}>Continue Our Story <ArrowRight size={17} /></button>}</div>
     <span className="sr-only" role="status">{phase === 'reading' ? 'Your letter is ready to read.' : ''}</span>

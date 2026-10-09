@@ -173,6 +173,10 @@ h1 span { display: flex; align-items: center; justify-content: center; gap: 14px
 .envelope-back { background: #e8c7c8; border: 1px solid #d8b4b8; z-index: 0; box-shadow: 0 15px 35px #805e731c; }
 .paper-pocket { position: absolute; inset: 0; overflow: hidden; z-index: 2; }
 .main-letter .extracted-paper { position: absolute; bottom: calc(var(--envelope-height) + 20px); left: 12px; width: calc(100% - 24px); height: var(--paper-height); margin: 0; max-width: none; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #d2abb6 #fffaf1; }
+.paper-heart-decoration { display: flex; align-items: center; justify-content: center; gap: 18px; height: 80px; padding: 24px 28px 0; color: #b77385; pointer-events: none; }
+.paper-heart-rule { width: 52px; max-width: 20%; height: 1px; background: #d8b4b8; }
+.paper-heart-mark { position: relative; display: grid; place-items: center; flex: 0 0 48px; height: 48px; filter: drop-shadow(0 3px 3px #a4546920); }
+.paper-heart-sparkle { position: absolute; top: 0; right: -4px; color: #c6a064; }
 .envelope-front { z-index: 3; background: #edd3d0; clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%); }
 .envelope-front:before, .envelope-front:after { content: ''; position: absolute; inset: 0; background: #efdbd7; clip-path: polygon(0 0, 55% 55%, 0 100%); }
 .envelope-front:after { clip-path: polygon(100% 0, 45% 55%, 100% 100%); }
@@ -186,7 +190,7 @@ h1 span { display: flex; align-items: center; justify-content: center; gap: 14px
 .envelope-actions .primary-button { margin-top: 0; }
 .envelope-actions button:disabled { cursor: default; transform: none; opacity: .65; }
 .letter-hearts { position: absolute; inset: 0; pointer-events: none; z-index: 5; color: #b78194; }
-.letter-hearts span { position: absolute; bottom: calc(var(--envelope-height) + 35px); }
+.letter-hearts span { position: absolute; bottom: calc(var(--envelope-height) - 14px); display: grid; place-items: center; }
 .story-letter-dialog { position: fixed; inset: 0; margin: auto; width: min(620px, 94vw); max-height: 94svh; padding: 45px 20px 30px; border: 1px solid #dcc2c9; background: #f3e7e7; color: #543c41; overflow-y: auto; overscroll-behavior: contain; box-shadow: 0 25px 90px #46283b40; }
 .story-letter-dialog::backdrop { background: #422937c9; backdrop-filter: blur(7px); }
 .story-letter-dialog .envelope-stage { --paper-height: clamp(220px, 40svh, 380px); --envelope-height: clamp(120px, 20svh, 180px); margin-top: 15px; }
